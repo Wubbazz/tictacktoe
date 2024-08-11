@@ -7,6 +7,8 @@
 
 extern SDL_Window * window;
 extern SDL_Renderer * renderer;
+extern int window_width;
+extern int window_height;
 
 bool setup_window(void);
 

@@ -2,6 +2,8 @@
 
 SDL_Window * window = NULL;
 SDL_Renderer * renderer = NULL;
+int window_width = 900;
+int window_height = 900;
 
 bool setup_window(void)
 {
@@ -14,8 +16,8 @@ bool setup_window(void)
 		"ticktactoe",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		800,
-		800,
+		window_width,
+		window_height,
 		SDL_WINDOW_SHOWN
 	);
 
