@@ -15,7 +15,6 @@ void get_input(void)
 	}
 }
 
-
 int main()
 {
 	running = setup_window();
@@ -23,6 +22,7 @@ int main()
 	while (running) {
 		get_input();
 	}
-
+	
+	destroy_display();
 	return 0;
 }

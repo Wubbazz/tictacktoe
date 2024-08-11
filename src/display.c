@@ -34,3 +34,10 @@ bool setup_window(void)
 
 	return true;
 }
+
+void destroy_display()
+{
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+}

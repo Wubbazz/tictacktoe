@@ -11,7 +11,7 @@ extern int window_width;
 extern int window_height;
 
 bool setup_window(void);
-
+void destroy_display(void);
 
 
 #endif
