@@ -15,12 +15,25 @@ void get_input(void)
 	}
 }
 
+void update()
+{
+}
+
+void render()
+{
+	//SDL_SetRenderDrawColor(renderer, 255, 255, 0, 0);
+    clear_color_buffer();
+	render_color_buffer();
+	SDL_RenderPresent(renderer);
+}
 int main()
 {
 	running = setup_window();
 	
 	while (running) {
 		get_input();
+		update();
+		render();
 	}
 	
 	destroy_display();

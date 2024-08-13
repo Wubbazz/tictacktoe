@@ -7,12 +7,11 @@
 
 extern SDL_Window * window;
 extern SDL_Renderer * renderer;
-extern int window_width;
-extern int window_height;
 
 bool setup_window(void);
 void destroy_display(void);
-
-
+void setup_grid(void);
+void clear_color_buffer(void);
+void render_color_buffer(void);
 #endif
 
