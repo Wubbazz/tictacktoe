@@ -21,14 +21,14 @@ void update()
 
 void render()
 {
-    clear_color_buffer();
 	render_color_buffer();
 	SDL_RenderPresent(renderer);
 }
 int main()
 {
-	running = setup_window();
-	
+	running = setup_window();	
+    clear_color_buffer();
+	setup_grid();
 	while (running) {
 		get_input();
 		update();

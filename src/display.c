@@ -78,6 +78,25 @@ void render_color_buffer()
 	);
 	SDL_RenderCopy(renderer, color_buffer_texture, NULL, NULL);
 }
+
+void setup_grid()
+{
+
+	for (int y = 0; y < window_height; y++) {
+		for (int x = 0; x < window_width; x++) {
+			// Drawing a pixel where the grid is split into vertical and horizontal lines
+			// Based on the 900 x 900 grid and the relative color buffer positions
+			/*	
+			if (y == 299 || y == 599 || x == 299 || x == 599) {
+				color_buffer[(y * window_width) + x] = 0xFF91D2FF;
+			}
+			*/
+			if ((y < 304 && y > 294) || (y < 604 && y > 594) || (x < 304 && x > 294) || (x < 604 && x > 594)) {
+				color_buffer[(y * window_width) + x] = 0xFF91D2FF;
+			}
+		}
+	}
+}
 void destroy_display()
 {
 	free(color_buffer);
