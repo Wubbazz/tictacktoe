@@ -21,6 +21,7 @@ void update()
 
 void render()
 {
+	
 	render_color_buffer();
 	SDL_RenderPresent(renderer);
 }
@@ -29,6 +30,8 @@ int main()
 	running = setup_window();	
     clear_color_buffer();
 	setup_grid();
+	
+	draw_circle(900/2, 900/2, 100);
 	while (running) {
 		get_input();
 		update();

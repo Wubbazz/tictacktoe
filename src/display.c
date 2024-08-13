@@ -4,9 +4,8 @@ SDL_Window * window = NULL;
 SDL_Renderer * renderer = NULL;
 const int window_width = 900;
 const int window_height = 900;
-uint32_t * color_buffer = NULL;
-SDL_Texture * color_buffer_texture = NULL;
-
+static uint32_t * color_buffer = NULL;
+static SDL_Texture * color_buffer_texture = NULL;
 
 bool setup_window(void)
 {
@@ -57,11 +56,6 @@ bool setup_window(void)
 
 void clear_color_buffer()
 {
-	/*
-	for (int i = 0; i < window_width * window_height; i++) {
-		color_buffer[i] = 0xFFFF0000;
-	}
-	*/
 	for (int y = 0; y < window_height; y++) {
 		for (int x = 0; x < window_width; x++) {
 			color_buffer[(y * window_width) + x] = 0xFF949494;
@@ -97,6 +91,47 @@ void setup_grid()
 		}
 	}
 }
+
+void draw_pixel(int x, int y, uint32_t color)
+{
+	color_buffer[(y * window_width) + x] = color;
+}
+
+void draw_circle(int x0, int y0, int radius)
+{
+    int x = radius-1;
+    int y = 0;
+    int dx = 1;
+    int dy = 1;
+    int err = dx - (radius << 1);
+
+    while (x >= y)
+    {
+        draw_pixel(x0 + x, y0 + y, 0x00000000);
+        draw_pixel(x0 + y, y0 + x, 0x00000000);
+        draw_pixel(x0 - y, y0 + x, 0x00000000);
+        draw_pixel(x0 - x, y0 + y, 0x00000000);
+        draw_pixel(x0 - x, y0 - y, 0x00000000);
+        draw_pixel(x0 - y, y0 - x, 0x00000000);
+        draw_pixel(x0 + y, y0 - x, 0x00000000);
+        draw_pixel(x0 + x, y0 - y, 0x00000000);
+
+        if (err <= 0)
+        {
+            y++;
+            err += dy;
+            dy += 2;
+        }
+        
+        if (err > 0)
+        {
+            x--;
+            dx += 2;
+            err += dx - (radius << 1);
+        }
+    }
+}
+
 void destroy_display()
 {
 	free(color_buffer);
