@@ -12,6 +12,13 @@ void get_input(void)
 		case SDL_QUIT:
 			running = false;
 			break;
+		case SDL_MOUSEBUTTONDOWN:
+			if (SDL_BUTTON_LEFT == event.button.button) {
+				int x, y;
+				SDL_GetMouseState(&x,&y);
+				draw_circle(x,y, 50);
+
+			}
 	}
 }
 
@@ -32,6 +39,7 @@ int main()
 	setup_grid();
 	
 	draw_circle(900/2, 900/2, 100);
+	draw_line(900/2, 900/2, 900, 900);
 	while (running) {
 		get_input();
 		update();

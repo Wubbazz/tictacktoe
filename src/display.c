@@ -75,7 +75,6 @@ void render_color_buffer()
 
 void setup_grid()
 {
-
 	for (int y = 0; y < window_height; y++) {
 		for (int x = 0; x < window_width; x++) {
 			// Drawing a pixel where the grid is split into vertical and horizontal lines
@@ -86,7 +85,7 @@ void setup_grid()
 			}
 			*/
 			if ((y < 304 && y > 294) || (y < 604 && y > 594) || (x < 304 && x > 294) || (x < 604 && x > 594)) {
-				color_buffer[(y * window_width) + x] = 0xFF91D2FF;
+				color_buffer[(y * window_width) + x] = 0xFF000000;
 			}
 		}
 	}
@@ -94,9 +93,22 @@ void setup_grid()
 
 void draw_pixel(int x, int y, uint32_t color)
 {
-	color_buffer[(y * window_width) + x] = color;
+	if (x < window_width && y < window_height) {
+		color_buffer[(y * window_width) + x] = color;
+	}
 }
 
+void draw_rect(int x, int y, int width, int height, uint32_t color)
+{
+	for (int i = 0; i < width; i++) {
+    	for (int j = 0; j < height; j++) {
+        	int current_x = x + i;
+            int current_y = y + j;
+            draw_pixel(current_x, current_y, color);
+        }
+    }
+}
+// This functions draws a circle based on Bresehams line algorithm
 void draw_circle(int x0, int y0, int radius)
 {
     int x = radius-1;
@@ -107,14 +119,14 @@ void draw_circle(int x0, int y0, int radius)
 
     while (x >= y)
     {
-        draw_pixel(x0 + x, y0 + y, 0x00000000);
-        draw_pixel(x0 + y, y0 + x, 0x00000000);
-        draw_pixel(x0 - y, y0 + x, 0x00000000);
-        draw_pixel(x0 - x, y0 + y, 0x00000000);
-        draw_pixel(x0 - x, y0 - y, 0x00000000);
-        draw_pixel(x0 - y, y0 - x, 0x00000000);
-        draw_pixel(x0 + y, y0 - x, 0x00000000);
-        draw_pixel(x0 + x, y0 - y, 0x00000000);
+        draw_rect(x0 + x, y0 + y, 4, 4, 0x00000000);
+        draw_rect(x0 + y, y0 + x, 4, 4, 0x00000000);
+        draw_rect(x0 - y, y0 + x, 4, 4, 0x00000000);
+        draw_rect(x0 - x, y0 + y, 4, 4, 0x00000000);
+        draw_rect(x0 - x, y0 - y, 4, 4, 0x00000000);
+        draw_rect(x0 - y, y0 - x, 4, 4, 0x00000000);
+        draw_rect(x0 + y, y0 - x, 4, 4, 0x00000000);
+        draw_rect(x0 + x, y0 - y, 4, 4, 0x00000000);
 
         if (err <= 0)
         {
@@ -132,6 +144,18 @@ void draw_circle(int x0, int y0, int radius)
     }
 }
 
+
+// Drawing a line based on line draw algorithm
+void draw_line(int x1, int y1, int x2, int y2)
+{
+	int dx = x2 - x1;
+	int dy = y2 - y1;
+	int m = dy/dx;
+	for (int x = x1; x < x2; x++) {
+    	int y = m * (x - x1) + y1;
+    	draw_rect(x, y, 4, 4, 0x00000000);
+	}
+}
 void destroy_display()
 {
 	free(color_buffer);
