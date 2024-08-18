@@ -93,7 +93,7 @@ void setup_grid()
 
 void draw_pixel(int x, int y, uint32_t color)
 {
-	if (x < window_width && y < window_height) {
+	if (x >= 0 && x < window_width && y >= 0 && y < window_height) {
 		color_buffer[(y * window_width) + x] = color;
 	}
 }
@@ -155,6 +155,30 @@ void draw_line(int x1, int y1, int x2, int y2)
     	int y = m * (x - x1) + y1;
     	draw_rect(x, y, 4, 4, 0x00000000);
 	}
+}
+
+void draw_x(int x, int y, int size)
+{
+	int x_coord_top = x + size;
+	int y_coord_top = y + size;
+	int x_coord_end = x - size;
+	int y_coord_end = y - size;
+
+	// Drawing the first line going from the right down to the bottom left;
+		
+	draw_line(x_coord_end,
+			  y_coord_top,
+			  x_coord_top,
+			  y_coord_end
+			  );
+	// Drawing the second line going from the left down to the bottom right
+	draw_line(x_coord_end,
+			  y_coord_end,
+			  x_coord_top,
+			  y_coord_top
+			  );
+
+	printf("X1: %d, Y1: %d, X2: %d, Y2: %d\n", x_coord_top, y_coord_top, x_coord_end, y_coord_end);	
 }
 void destroy_display()
 {

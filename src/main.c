@@ -16,8 +16,8 @@ void get_input(void)
 			if (SDL_BUTTON_LEFT == event.button.button) {
 				int x, y;
 				SDL_GetMouseState(&x,&y);
-				draw_circle(x,y, 50);
-
+				//draw_circle(x, y, 100);
+				draw_x(x, y, 100);
 			}
 	}
 }

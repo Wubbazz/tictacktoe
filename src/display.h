@@ -8,6 +8,8 @@
 extern SDL_Window * window;
 extern SDL_Renderer * renderer;
 
+
+
 bool setup_window(void);
 void destroy_display(void);
 void setup_grid(void);
@@ -17,5 +19,6 @@ void draw_pixel(int x, int y, uint32_t color);
 void draw_rect(int x, int y, int width, int height, uint32_t color);
 void draw_circle(int x0, int y0, int radius);
 void draw_line(int x1, int y1, int x2, int y2);
+void draw_x(int x, int y, int size);
 #endif
 
