@@ -87,7 +87,18 @@ void get_input(void)
 	}
 }
 
-
+void loop_win_check()
+{
+	if (draw_check()) {
+		SDL_Delay(1500);
+		running = false;
+	}
+	if (check_win_scenario()) {
+			printf("The winner is %c!!!!\n", turn);
+			SDL_Delay(1500);
+			running = false;
+	}
+}
 void render()
 {
 	render_color_buffer();
@@ -101,12 +112,8 @@ int main()
 	setup_grid();
 	while (running) {
 		get_input();
-		if (check_win_scenario()) {
-			printf("The winner is %c!!!!\n", turn);
-			SDL_Delay(3000);
-			running = false;
-		}
 		render();
+		loop_win_check();
 	}
 	
 	destroy_display();
